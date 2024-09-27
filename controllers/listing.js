@@ -521,11 +521,32 @@ module.exports.attendanceFilter = async (req, res) => {
     res.render("attendance/updateAttendance", {students});
 };
 
+const axios = require('axios');
+
 module.exports.chat = async (req, res) => {
     let chat = [
-        { user: 'Hello', bot: 'Hi' }
+        { user: 'Hello', bot: 'Hi' }
     ];
-    res.render("attendance/chat", {chat});
+
+    // Extract the user message from the request
+    const userMessage = req.body.user_message;
+
+    try {
+        // Send the user message to the FastAPI endpoint
+        const response = await axios.post('http://localhost:8000/chat', {
+            user_message: userMessage,
+            role: 'user'  // Assuming the role is 'user'
+        });
+
+        // Push the response from the FastAPI endpoint into the chat array
+        chat.push({ user: userMessage, bot: response.data.bot_reply });
+    } catch (error) {
+        console.error('Error fetching response from FastAPI:', error);
+        chat.push({ user: userMessage, bot: 'Error fetching response from the server.' });
+    }
+
+    // Render the chat view with the updated chat array
+    res.render("attendance/chat", { chat });
 };
 
 

@@ -1,0 +1,67 @@
+{
+    "fee_structure": {
+      "academic_year": "2023-24",
+      "categories": [
+        {
+          "category": "OPEN",
+          "tuition_fees": 154782,
+          "development_fees": 23218,
+          "exam_fees": 2500,
+          
+          "total_fees": 184610
+        },
+        
+        {
+          "category": "EBC",
+          "tuition_fees": 77391,
+          "development_fees": 23218,
+          "exam_fees": 2500,
+          "total_fees": 107219
+        },
+        {
+          "category": "EWS",
+          "tuition_fees": 77391,
+          "development_fees": 23218,
+          "exam_fees": 2500,
+          "total_fees": 107219
+        },
+        {
+          "category": "OBC",
+          "tuition_fees": 77391,
+          "development_fees": 23218,
+          "exam_fees": 2500,
+          "total_fees": 107219
+        },
+        {
+          "category": "SBC",
+          "tuition_fees": 0,
+          "development_fees": 23218,
+          "exam_fees": 2500,
+          "total_fees": 29828
+        },
+        {
+          "category": "NT",
+          "tuition_fees": 0,
+          "development_fees": 23218,
+          "exam_fees": 2500,
+          "total_fees": 29828
+        },
+        {
+          "category": "ST",
+          "tuition_fees": 0,
+          "development_fees": 0,
+          "exam_fees": 2500,
+          "total_fees": 6610
+        },
+        {
+          "category": "SC",
+          "tuition_fees": 0,
+          "development_fees": 0,
+          "exam_fees": 2500,
+          "total_fees": 6610
+        }
+      ]
+      
+    }
+  }
+  

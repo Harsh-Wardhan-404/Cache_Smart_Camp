@@ -1,0 +1,82 @@
+[events]
+1. Hackathon
+- Date: 29-Sept
+- Location: Seminar Hall
+- Contact: 9945894687
+- Description: A 24-hour coding marathon where students collaborate to solve real-world problems.
+
+2. Cultural Fest
+- Date: 15-Oct
+- Location: Main Auditorium
+- Contact: 9123456789
+- Description: A day filled with cultural performances, food stalls, and fun activities.
+
+3. Tech Talk Series
+- Date: Every Friday in October
+- Location: Conference Room A
+- Contact: 9876543210
+- Description: Weekly sessions featuring industry experts discussing the latest in technology and innovation.
+
+[fees]
+Academic Year: 2023-24
+1. OPEN
+- Tuition Fees: 154782
+- Development Fees: 23218
+- Exam Fees: 2500
+- Total Fees: 184610
+
+2. EBC
+- Tuition Fees: 77391
+- Development Fees: 23218
+- Exam Fees: 2500
+- Total Fees: 107219
+
+
+
+[events]
+1. Monday Classes
+- Time: 8:00 A.M. - 5:00 P.M.
+- Details: 
+  - 8:00 A.M. - 9:00 A.M.: PE-1 (Room: E-309, Prof. GYB)
+  - 9:00 A.M. - 10:00 A.M.: PE-1 (Room: E-309, Prof. GYB)
+  - 11:00 A.M. - 12:00 P.M.: PE-1 (Room: E-309, Prof. GYB)
+  - 12:00 P.M. - 1:00 P.M.: PE-1 (Room: E-309, Prof. GYB)
+  - 1:00 P.M. - 2:00 P.M.: PE-1 (Room: E-309, Prof. GYB)
+
+2. Tuesday Classes
+- Time: 8:00 A.M. - 5:00 P.M.
+- Details:
+  - 8:00 A.M. - 9:00 A.M.: DLCV (Room: E-309, Prof. GRS)
+  - 9:00 A.M. - 11:00 A.M.: DLCVL (Room: E-102, Prof. GRS)
+  - 11:00 A.M. - 12:00 P.M.: BDA (Room: E-309, Prof. OSK)
+  - 12:00 P.M. - 1:00 P.M.: CNIOT (Room: E-309, Prof. PK)
+  - 2:00 P.M. - 3:00 P.M.: BDAL (Room: E-104, Prof. OSK)
+  - 3:00 P.M. - 5:00 P.M.: CNIOTL (Room: E-103, Prof. PK)
+
+3. Wednesday Classes
+- Time: 8:00 A.M. - 5:00 P.M.
+- Details:
+  - 8:00 A.M. - 9:00 A.M.: DLCV (Room: E-309, Prof. GRS)
+  - 9:00 A.M. - 11:00 A.M.: DLCVL (Room: E-102, Prof. GRS)
+  - 11:00 A.M. - 12:00 P.M.: CNIOT (Room: E-309, Prof. PK)
+  - 12:00 P.M. - 1:00 P.M.: BDA (Room: E-309, Prof. OSK)
+  - 2:00 P.M. - 3:00 P.M.: BDAL (Room: E-104, Prof. OSK)
+  - 3:00 P.M. - 5:00 P.M.: CNIOTL (Room: E-103, Prof. PK)
+
+4. Thursday Classes
+- Time: 8:00 A.M. - 5:00 P.M.
+- Details:
+  - 8:00 A.M. - 9:00 A.M.: DLCV (Room: E-309, Prof. GRS)
+  - 9:00 A.M. - 11:00 A.M.: MLOPS1 (Room: E-102, Prof. OSK)
+  - 11:00 A.M. - 12:00 P.M.: BDA (Room: E-309, Prof. OSK)
+  - 12:00 P.M. - 1:00 P.M.: MLOPS1 (Room: E-102, Prof. OSK)
+  - 2:00 P.M. - 5:00 P.M.: MLOPS2, MLOPS3 (Rooms: E-103, E-104, Profs. GYB, RSK)
+
+5. Friday Classes
+- Time: 8:00 A.M. - 5:00 P.M.
+- Details:
+  - 8:00 A.M. - 9:00 A.M.: CNIOT (Room: E-309, Prof. PK)
+  - 9:00 A.M. - 11:00 A.M.: DLCVL (Room: E-102, Prof. GRS)
+  - 11:00 A.M. - 1:00 P.M.: RM (Room: E-309, Prof. RSK)
+  - 2:00 P.M. - 3:00 P.M.: BDAL (Room: E-104, Prof. OSK)
+  - 3:00 P.M. - 5:00 P.M.: CNIOTL (Room: E-103, Prof. PK)
