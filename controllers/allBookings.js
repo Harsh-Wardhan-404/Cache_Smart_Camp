@@ -41,7 +41,7 @@ module.exports.planPage = async (req, res) => {
     let c = city.toLowerCase();
     let m = month.toLowerCase();
     try {
-        let plan = await Event.findOne({ city: c, month: m }).populate('intrestedUsers').populate('owner').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
+        let plan = await Event.findOne({ city: c, month: m }).populate('participants').populate('organisers').populate('conductedBy').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
         if (plan) {
             res.redirect(`/plan/${plan._id}`);
         } else {
@@ -71,6 +71,8 @@ module.exports.createPlan = async (req, res) => {
         newPlan.endDate = endDate;
         newPlan.description = description;
         newPlan.email = email;
+        newPlan.organisers = [];
+        newPlan.organisers.push(currUser._id);
         await newPlan.save(); // Ensure the plan is saved before rendering
         res.redirect(`/plan/${newPlan._id}`);
     } catch (err) {

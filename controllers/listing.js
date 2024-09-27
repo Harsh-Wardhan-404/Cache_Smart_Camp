@@ -1,5 +1,6 @@
 const Booking = require("../models/booking.js");
 const Listing = require("../models/listing.js");
+const Event = require("../models/Event.js");
 const User = require("../models/user.js");
 
 module.exports.index = async (req, res) => {
@@ -397,5 +398,51 @@ module.exports.myBookmarks = async (req, res) => {
         }
     }
     res.render("listings/index.ejs", { allListings,likeFlags,bookmarkFlags,category : "Your Bookmarks" });
+};
+
+module.exports.myParticipated = async (req, res) => {
+    let currUser = await User.findOne({username : res.locals.currUser.username});
+    let allListings = await Event.find({ participants : { $in: [currUser._id] } }).populate('participants').populate('organisers').populate('conductedBy').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
+    let participantsFlags = [];
+    let plans = []
+    for (let i = 0; i < allListings.length; i++) {
+        participantsFlags[i] = false;
+    }
+    if (typeof res.locals.currUser !== 'undefined') {
+        let currUser = res.locals.currUser;
+        for (let i = 0; i < allListings.length; i++) {
+            for (let j = 0; j < allListings[i].participants.length; j++) {
+                if (allListings[i].participants[j].username == currUser.username) {
+                    participantsFlags[i] = true;
+                    plans.push(allListings[i]);
+                    break;
+                }
+            }
+        }
+    }
+    res.render("booking/dummy", { plans,participantsFlags ,category : "Your Participated Events" });
+};
+
+module.exports.myOrganised = async (req, res) => {
+    let currUser = await User.findOne({username : res.locals.currUser.username});
+    let allListings = await Event.find({ organisers: { $in: [currUser._id] } }).populate('participants').populate('organisers').populate('conductedBy').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
+    let organisedFlags = [];
+    let plans = [];
+    for (let i = 0; i < allListings.length; i++) {
+        organisedFlags[i] = false;
+    }
+    if (typeof res.locals.currUser !== 'undefined') {
+        let currUser = res.locals.currUser;
+        for (let i = 0; i < allListings.length; i++) {
+            for (let j = 0; j < allListings[i].organisers.length; j++) {
+                if (allListings[i].organisers[j].username == currUser.username) {
+                    organisedFlags[i] = true;
+                    plans.push(allListings[i]);
+                    break;
+                }
+            }
+        }
+    }
+    res.render("booking/dummy", { plans,organisedFlags ,category : "Your Organised Events" });
 };
 
