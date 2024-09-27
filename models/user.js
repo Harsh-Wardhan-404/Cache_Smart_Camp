@@ -71,7 +71,8 @@ const userSchema = new Schema({
         enum: [
             "A",
             "B",
-            "C"
+            "C",
+            "D",
         ],
     },
     year : {

@@ -21,6 +21,10 @@ router.post("/",upload.array('images',5),validateListing, wrapAsync(listingContr
 //search route
 router.post("/city",listingController.search);
 router.get("/myBookmarks",wrapAsync(listingController.myBookmarks));
+router.get("/attendance",wrapAsync(listingController.attendance));
+router.get("/attendanceFilter",wrapAsync(listingController.attendanceFilter));
+router.get("/chat",wrapAsync(listingController.chat));
+router.post("/attendanceFilter",wrapAsync(listingController.attendanceFilter));
 router.get("/participated",wrapAsync(listingController.myParticipated));
 router.get("/organised",wrapAsync(listingController.myOrganised));
 //filter by price

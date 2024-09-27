@@ -2,6 +2,8 @@ const Booking = require("../models/booking.js");
 const Listing = require("../models/listing.js");
 const Event = require("../models/Event.js");
 const User = require("../models/user.js");
+const AttEntry = require("../models/AttEntry.js");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 module.exports.index = async (req, res) => {
     let allListings = await Listing.find({}).populate("owner").populate("likedBy").populate("bookmarkedBy");
@@ -444,5 +446,86 @@ module.exports.myOrganised = async (req, res) => {
         }
     }
     res.render("booking/dummy", { plans,organisedFlags ,category : "Your Organised Events" });
+};
+
+module.exports.attendance = async (req, res) => {
+    let currUser = await User.findOne({username : res.locals.currUser.username});
+    let dEntries = await AttEntry.find({
+        user: currUser._id,
+        subject: "DSML"
+    });
+    let fEntries = await AttEntry.find({
+        user: currUser._id,
+        subject: "FDS"
+    });
+    let iEntries = await AttEntry.find({
+        user: currUser._id,
+        subject: "IOT"
+    });
+    let aEntries = await AttEntry.find({
+        user: currUser._id,
+        subject: "AI"
+    });
+
+    let d = 0;
+    let f = 0; 
+    let ia = 0;
+    let a = 0;
+
+    for (let i = 0; i < dEntries.length; i++) {
+        if(dEntries[i].isPresent) {
+            d++;
+        }
+    }
+    for (let i = 0; i < fEntries.length; i++) {
+        if(fEntries[i].isPresent) {
+            f++;
+        }
+    }
+    for (let i = 0; i < iEntries.length; i++) {
+        if(iEntries[i].isPresent) {
+            ia++;
+        }
+    }
+    for (let i = 0; i < aEntries.length; i++) {
+        if(aEntries[i].isPresent) {
+            a++;
+        }
+    }
+    d = (d/dEntries.length)*100;
+    f = (f/fEntries.length)*100;
+    ia = (ia/iEntries.length)*100;
+    a = (a/aEntries.length)*100;
+    
+    res.render("attendance/showAttendance", { d,f,ia,a});
+}
+
+module.exports.attendanceFilter = async (req, res) => {
+   let students = [];
+   res.render("attendance/updateAttendance", {students});
+};
+
+module.exports.attendanceFilter = async (req, res) => {
+    console.log(req.body);
+    let {c, subject, year, attendance} = req.body; 
+     year = parseInt(year);
+    let students = await User.find({});
+    console.log(students);
+    res.render("attendance/updateAttendance", {students});
+};
+
+module.exports.chat = async (req, res) => {
+    let chat = [
+        { user: 'Hello', bot: 'Hi' }
+    ];
+    res.render("attendance/chat", {chat});
+};
+
+module.exports.mySchedule = async (req, res) => {
+    let chat = [
+        { user: 'Hello', bot: 'Hi' }
+
+    ];
+    res.render("attendance/chat", {chat});
 };
 

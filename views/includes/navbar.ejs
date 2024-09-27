@@ -225,6 +225,19 @@
             <div class="navbar-nav me-4">
                 <a class="nav-link texts" href="/listings/topRated">Trending <i class="fa-solid fa-fire"></i></a>
             </div>
+            <div class="navbar-nav me-4">
+                <a class="nav-link texts" href="/listings/chat">AI Assitance<i class="fa-solid fa-handshake"></i></a>
+            </div>
+            <% if(currUser && currUser.role==="Student") { %>
+            <div class="navbar-nav me-4"></div>
+                <a class="nav-link texts" href="/listings/attendance">My Attendance</a>
+            </div>
+            <% } else  if(currUser && currUser.role==="Teacher"){ %>
+                <div class="navbar-nav me-4"></div>
+                   <a class="nav-link texts" href="/listings/attendanceFilter">Update Attendance</a>
+                </div>
+            <% } %>
+
             <div class="navbar-nav ms-auto d-flex align-items-center">
                 <% if(!currUser) { %>
                     <div class="navbar-nav sidebar-profile">
