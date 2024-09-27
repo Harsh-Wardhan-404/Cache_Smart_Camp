@@ -4,4 +4,5 @@ fastapi
 uvicorn
 pandas
 numpy
-Ctransformers
+ctransformers
+dotenv

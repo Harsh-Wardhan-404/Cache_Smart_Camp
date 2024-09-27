@@ -13,7 +13,8 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-if __name__ == "__main__":
 
+
+if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, port=port)
