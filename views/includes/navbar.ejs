@@ -228,8 +228,11 @@
             <div class="navbar-nav me-4">
                 <a class="nav-link texts" href="/listings/chat">AI Assitance<i class="fa-solid fa-handshake"></i></a>
             </div>
+            <div class="navbar-nav me-4">
+                <a class="nav-link texts" href="/listings/mySchedule">Today's Schedule</a>
+            </div>
             <% if(currUser && currUser.role==="Student") { %>
-            <div class="navbar-nav me-4"></div>
+            <div class="navbar-nav me-4">
                 <a class="nav-link texts" href="/listings/attendance">My Attendance</a>
             </div>
             <% } else  if(currUser && currUser.role==="Teacher"){ %>

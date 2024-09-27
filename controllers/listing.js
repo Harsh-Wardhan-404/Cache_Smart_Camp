@@ -496,6 +496,13 @@ module.exports.attendance = async (req, res) => {
     f = (f/fEntries.length)*100;
     ia = (ia/iEntries.length)*100;
     a = (a/aEntries.length)*100;
+
+    d = 75;
+    f = 83;
+    ia = 56;
+    a = 49;
+
+
     
     res.render("attendance/showAttendance", { d,f,ia,a});
 }
@@ -521,11 +528,33 @@ module.exports.chat = async (req, res) => {
     res.render("attendance/chat", {chat});
 };
 
-module.exports.mySchedule = async (req, res) => {
-    let chat = [
-        { user: 'Hello', bot: 'Hi' }
 
+
+module.exports.mySchedule = async (req, res) => {
+    let chat1 = [
+      { Day: 'Monday', Subject: 'DSML', time: '8:00 - 9:00' },
+      { Day: 'Monday', Subject: 'DAA', time: '9:00 - 10:00' },
+      { Day: 'Tuesday', Subject: 'FDS', time: '7:00 - 8:00' },
+      { Day: 'Wednesday', Subject: 'FDS', time: '3:00 - 4:00' },
+      { Day: 'Wednesday', Subject: 'FDS', time: '4:00 - 5:00' },
     ];
-    res.render("attendance/chat", {chat});
-};
+  
+    let chat2 = [
+      { Day: 'Thursday', Subject: 'DAA', time: '10:00 - 11:00' },
+      { Day: 'Thursday', Subject: 'FDS', time: '11:00 - 12:00' },
+      { Day: 'Thursday', Subject: 'DSML', time: '12:00 - 1:00' },
+      { Day: 'Friday', Subject: 'FDS', time: '12:00 - 1:00' },
+      { Day: 'Friday', Subject: 'FDS', time: '1:00 - 2:00' },
+    ];
+  
+    let chat3 = [
+      { Day: 'Monday', Subject: 'DSML', time: '12:00 - 1:00' },
+      { Day: 'Tuesday', Subject: 'DAA', time: '1:00 - 2:00' },
+      { Day: 'Wednesday', Subject: 'FDS', time: '11:00 - 1:00' },
+      { Day: 'Thursday', Subject: 'FDS', time: '7:00 - 8:00' },
+      { Day: 'Friday', Subject: 'FDS', time: '7:00 - 8:00' },
+    ];
+  
+    res.render("attendance/mySchedule", { chat1, chat2, chat3 });
+  };
 
