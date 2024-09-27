@@ -1,0 +1,6 @@
+#SET UP EVN IN FASTAPI
+
+>> cd fastapi
+>> python -m venv venv
+>> ./venv/Scripts/activate
+>> pip install -r requirements.txt
