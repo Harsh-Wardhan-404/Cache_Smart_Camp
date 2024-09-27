@@ -5,7 +5,11 @@ const Schema = mongoose.Schema;
 const eventSchema = new Schema({
     name : String,
     contact : Number,
-    image:  {
+    conductedBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    image: {
         url : {
             type : String,
             default : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
@@ -36,16 +40,15 @@ const eventSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : "Listing"
     }],
-    doc : Date,
     location : String,
-    startTime : {
-        type : Date,
-        required : true
-    },
-    endTime : {
-        type : Date,
-        required : true
-    },
+    startdate : Date,
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Review"
+        }
+    ],
+    endDate : Date,
      //username and password are automatically created by passport library 
 });
 

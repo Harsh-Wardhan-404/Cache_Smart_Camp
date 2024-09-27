@@ -31,11 +31,11 @@ app.use(express.urlencoded({ extended: true }));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-const MONGO_URL = process.env.ATLASDB_URL;
-const dBUrl = process.env.ATLASDB_URL;
+const MONGO_URL = "mongodb://127.0.0.1:27017/smartCamp";
+const dBUrl = "mongodb://127.0.0.1:27017/smartCamp";
 
 async function main() {
-    await mongoose.connect(dBUrl);
+    await mongoose.connect(MONGO_URL);
 }
 main().then(() => {
     console.log("Successfully Connected to DB");

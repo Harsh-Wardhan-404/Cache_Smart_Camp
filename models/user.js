@@ -10,7 +10,7 @@ const userSchema = new Schema({
         type: String,
         enum: [
             "Student",
-            "Faculty",
+            "Teacher",
             "Organiser"
         ],
         required: true,
@@ -73,7 +73,6 @@ const userSchema = new Schema({
             "B",
             "C"
         ],
-        required: true,
     },
     year : {
         type: Number,

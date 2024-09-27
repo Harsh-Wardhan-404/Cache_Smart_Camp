@@ -17,21 +17,12 @@ const listingSchema = new Schema({
     category: {
         type: String,
         enum: [
-            "Mountains", 
-            "Beaches and Coastal Areas", 
-            "Forests and Jungles", 
-            "Deserts", 
-            "Historical and Cultural Sites", 
-            "Urban Destinations", 
-            "Countryside and Rural Areas", 
-            "Islands", 
-            "Lakes and Rivers", 
-            "Special Interest and Seasonal Attractions"
+            "Event Updates",
+            "Student Achievements",
+            "Miscellaneous",
         ],
         required: true,
     },
-    location: String,
-    country: String,
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -54,6 +45,7 @@ const listingSchema = new Schema({
         type : Date,
         default : Date.now()
     },
+    location : String,
 });
 
 //post mongoose middleware

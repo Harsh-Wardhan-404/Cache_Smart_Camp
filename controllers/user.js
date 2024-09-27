@@ -6,14 +6,14 @@ module.exports.signupForm = (req, res) => {
 
 module.exports.signup = async (req, res, next) => {
     try {
-        let { username, email, password } = req.body;
-        const newUser = new User({ email, username });
+        let { username, email, password ,role } = req.body;
+        const newUser = new User({ email, username , role});
         const registeredUser = await User.register(newUser, password);
         req.login(registeredUser, (err) => {
             if (err) {
                 return next(err);
             }
-            req.flash("success", "Welcome to VoyaBook!");
+            req.flash("success", "Welcome to SmartCamp!");
             res.redirect("/listings");
         });
     } catch (err) {
@@ -27,7 +27,7 @@ module.exports.loginForm = (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
-    req.flash("success", "Welcome back to VoyaBook, You are logged in!");
+    req.flash("success", "Welcome back to SmartCamp, You are logged in!");
     let redirectUrl = res.locals.redirectUrl || "/listings";
     res.redirect(redirectUrl);
 };

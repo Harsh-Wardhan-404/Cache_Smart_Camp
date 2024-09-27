@@ -1,7 +1,9 @@
 const User = require("../models/user.js");
 const Booking = require('../models/booking.js');
+const Event = require('../models/Event.js');
 const Review = require("../models/review.js");
 const axios = require('axios');
+const { STATES } = require("mongoose");
 // module.exports.allBookings = async (req,res) => {
 //     let allBookings = await Booking.find({}).populate({path:"listing",populate : {
 //         path : "owner"
@@ -30,7 +32,7 @@ const axios = require('axios');
 //     res.render("allBookings/show.ejs",{allBookings});
 // };
 module.exports.planSearch = async (req, res) => {
-    let plans = await Booking.find({}).populate('intrestedUsers').populate('owner').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
+    let plans = await Event.find({}).populate('participants').populate('participants').populate('conductedBy').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
     res.render("booking/search", {plans});
 }
 
@@ -39,7 +41,7 @@ module.exports.planPage = async (req, res) => {
     let c = city.toLowerCase();
     let m = month.toLowerCase();
     try {
-        let plan = await Booking.findOne({ city: c, month: m }).populate('intrestedUsers').populate('owner').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
+        let plan = await Event.findOne({ city: c, month: m }).populate('intrestedUsers').populate('owner').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
         if (plan) {
             res.redirect(`/plan/${plan._id}`);
         } else {
@@ -55,30 +57,25 @@ module.exports.planPage = async (req, res) => {
 }
 
 module.exports.createPlan = async (req, res) => {
-    let { city, month } = req.body; // Extract city and month from req.body
+    console.log("Hello");
+    console.log(req.body);
+    let {name,location, startDate, endDate, description, email} = req.body; 
     try {
         let currUser = await User.findOne({ username: res.locals.currUser.username });
-        let newPlan = new Booking();
-        newPlan.month = month.toLowerCase();
-        newPlan.city = city.toLowerCase();
-        newPlan.owner = currUser;
+        let newPlan = new Event();
+        newPlan.name = name;
+        newPlan.location = location;
+        newPlan.conductedBy = currUser;
         newPlan.image = { url: req.file.path, filename: req.file.filename };
-        newPlan.intrestedUsers = [currUser._id];
-        let c = city.toLowerCase();
-        let m = month.toLowerCase();
-        let existingPlan = await Booking.findOne({ city: c, month: m }).populate('intrestedUsers').populate('owner').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
-        if (existingPlan) {
-            req.flash("success", "Plan already exists, join the explorers");
-            res.redirect(`/plan/${existingPlan._id}`);
-            return;
-        } else {
+        newPlan.startDate = startDate;
+        newPlan.endDate = endDate;
+        newPlan.description = description;
+        newPlan.email = email;
         await newPlan.save(); // Ensure the plan is saved before rendering
         res.redirect(`/plan/${newPlan._id}`);
-        }
-        
     } catch (err) {
         // Handle errors
-        console.error("Error creating plan:", err);
+        console.error("Error creating Event:", err);
         req.flash("error", "An error occurred while creating the plan.");
         res.redirect("/plan");
     }
@@ -87,14 +84,14 @@ module.exports.createPlan = async (req, res) => {
 module.exports.getPlan = async (req,res) => {
     let {id} = req.params;
     let user = await User.findOne({username : res.locals.currUser.username});
-    let plan = await Booking.findById(id).populate('intrestedUsers').populate('owner').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
+    let plan = await Event.findById(id).populate('participants').populate('organisers').populate('conductedBy').populate({ path: "reviews", populate: [{ path: "author"},{ path : "replies", populate : {path : "author"}}]});
     if(!plan) {
         req.flash("error", "Plan you requested for does not exist! Create your owns");
         res.redirect("/plan");
     }
     let isUserInterested = false;
-    for(let i=0; i<plan.intrestedUsers.length; i++) {
-        if(plan.intrestedUsers[i]._id.toString()==user._id.toString()) {
+    for(let i=0; i<plan.participants.length; i++) {
+        if(plan.participants[i]._id.toString()==user._id.toString()) {
             isUserInterested = true;
             break;
         }
@@ -106,32 +103,32 @@ module.exports.getPlan = async (req,res) => {
 
 module.exports.createReview = async (req,res)=> {
     let {id} = req.params;
-    let plan = await Booking.findById(id);
+    let plan = await Event.findById(id);
     let newReview = new Review(req.body.review);
     newReview.author = req.user._id;
     plan.reviews.push(newReview);
     await newReview.save();
     await plan.save();
-    req.flash("success", "Comment Added!");
+    req.flash("success", "Message Send!");
     res.redirect(`/plan/${plan._id}`);
 };
 
 module.exports.destroyReview = async (req,res) => {
     let {id,reviewId } = req.params;
-    let plan = await Booking.findById(id);
-    await Booking.findByIdAndUpdate(id , {$pull :{reviews : reviewId} } );
+    let plan = await Event.findById(id);
+    await Event.findByIdAndUpdate(id , {$pull :{reviews : reviewId} } );
     let x = await Review.findById(reviewId).populate("replies");
     for(let i=0; i<x.replies.length; i++) {
         await Review.findByIdAndDelete(x.replies[i]._id);
     }
     await Review.findByIdAndDelete(reviewId);
-    req.flash("success", "Comment Deleted!");
+    req.flash("success", "Message Deleted!");
     res.redirect(`/plan/${plan._id}`);
 };
 
 module.exports.addReply = async (req,res) => {
     let {id,reviewId } = req.params;
-    let plan = await Booking.findById(id);
+    let plan = await Event.findById(id);
     let reply = req.body.reply;
     let review = await Review.findById(reviewId).populate("replies");
     let newReview = new Review(reply);
@@ -147,7 +144,7 @@ module.exports.addReply = async (req,res) => {
 
 module.exports.destroyReply = async (req,res) => {
     let {id,reviewId, replyId} = req.params;
-    let plan = await Booking.findById(id);
+    let plan = await Event.findById(id);
     await Review.findByIdAndUpdate(reviewId , {$pull :{replies: replyId} } );
     await Review.findByIdAndDelete(replyId);
     req.flash("success", "Reply Deleted!");
@@ -158,13 +155,13 @@ module.exports.addUser = async (req,res) => {
     console.log("hello");
     let {id,userId} = req.params;
     try {
-        const plan = await Booking.findById(id);
+        const plan = await Event.findById(id);
         const user = await User.findById(userId);
         
         if (!plan || !user) {
             return res.status(400).json({ success: false, message: 'Plan or user not found' });
         }
-        plan.intrestedUsers.push(user);
+        plan.participants.push(user);
         await plan.save();
         res.json({ success: true, user });
     } catch (error) {
@@ -176,12 +173,12 @@ module.exports.addUser = async (req,res) => {
 module.exports.removeUser = async (req,res) => {
     let {id,userId} = req.params;
     try {
-        const plan = await Booking.findById(id);
+        const plan = await Event.findById(id);
         const user = await User.findById(userId);
         if (!plan) {
             return res.status(400).json({ success: false, message: 'Plan not found' });
         }
-        plan.intrestedUsers = plan.intrestedUsers.filter(uId => uId.toString() !== user._id.toString());
+        plan.participants = plan.participants.filter(uId => uId.toString() !== user._id.toString());
         await plan.save();
         res.json({ success: true, user: { _id: userId } });
     } catch (error) {

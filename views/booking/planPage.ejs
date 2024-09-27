@@ -169,26 +169,29 @@
 <div class="row show-page mt-4" id="plan-page" data-plan-id="<%= plan._id %>" data-user-id="<%= currUser._id %>">
     <div class="col-12 col-sm-12 col-md-12 col-lg-8 mx-auto">
         <h3 class="text-center texts">
-            <%= plan.city %>
+            <%= plan.name %>
         </h3>
         <div class="card-show col-12">
             <img src="<%= plan.image.url %>" class="card-img-top show-img mb-3 mt-3" alt="Listing image">
             <div class="card-body" style="display: flex; flex-direction: row;">
-                <p class="card-text texts">Plan Initiated by <i><%= plan.owner.username %></i></p>
+                <div style="display: flex; flex-direction: column;">
+                <h3 class="card-text texts">Event organised by <i><%= plan.conductedBy.username %></i></h3>
+                <p class="card-text texts">Event details : <%= plan.description %></p>
+                </div>
                 <% if (isUserInterested) { %>
-                    <button id="leave-journey-btn" class="leave-btn texts" style="display: inline-block;">Leave Journey</button>
-                    <button id="join-journey-btn" class="join-btn texts" style="display: none;">Join Journey</button>
+                    <button id="leave-journey-btn" class="leave-btn texts" style="display: inline-block;">Quit Event</button>
+                    <button id="join-journey-btn" class="join-btn texts" style="display: none;">Participate</button>
                 <% } else { %>
-                    <button id="leave-journey-btn" class="leave-btn texts" style="display: none;">Leave Journey</button>
-                    <button id="join-journey-btn" class="join-btn texts" style="display: inline-block;">Join Journey</button>
+                    <button id="leave-journey-btn" class="leave-btn texts" style="display: none;">Quit Event</button>
+                    <button id="join-journey-btn" class="join-btn texts" style="display: inline-block;">Participate</button>
                 <% } %>
             </div>
             <hr class="texts">
             <div class="container">
                 <div class="following-list">
-                    <div class="heading texts">Users Interested to travel <i><%= plan.city %></i> &nbsp; in <i><%= plan.month %></i></div>
+                    <div class="heading texts">Intereseted Students to Participate in <i><%= plan.name %></i></div>
                     <div class="row" id="interested-users-list">
-                        <% plan.intrestedUsers.forEach(user => { %>
+                        <% plan.participants.forEach(user => { %>
                             <div class="col-12 interested-user" data-user-id="<%= user._id %>">
                                 <div class="card follower secbg texts">
                                     <div class="card-body follower-body">
@@ -220,10 +223,10 @@
             <div class="mt-3 mb-3">
                 <% if (currUser) { %>
                     <hr class="texts">
-                    <h4 class="texts">Communicate with explorers</h4>
+                    <h4 class="texts">Communicate with Participants</h4>
                     <form action="/plan/<%= plan._id %>/reviews" method="POST">
                         <div class="mb-3 mt-3">
-                            <label for="comment" class="form-label texts">Comments</label>
+                            <label for="comment" class="form-label texts">Chat</label>
                             <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
                         </div>
                         <button class="btn btn-outline-dark edit-btn texts">Submit</button>
