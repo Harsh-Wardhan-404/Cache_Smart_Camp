@@ -1,0 +1,14 @@
+transformers
+torch
+fastapi
+uvicorn
+pandas
+numpy
+ctransformers
+dotenv
+langchain
+pydantic
+langchain_community
+sentence_transformers
+chromadb
+pypdf

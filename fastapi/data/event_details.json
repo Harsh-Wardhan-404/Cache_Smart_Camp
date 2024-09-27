@@ -1,0 +1,25 @@
+{
+    "events": [
+        {
+            "name": "Hackathon",
+            "date": "29-Sept",
+            "location": "Seminar Hall",
+            "contact": "9945894687",
+            "description": "A 24-hour coding marathon where students collaborate to solve real-world problems."
+        },
+        {
+            "name": "Cultural Fest",
+            "date": "15-Oct",
+            "location": "Main Auditorium",
+            "contact": "9123456789",
+            "description": "A day filled with cultural performances, food stalls, and fun activities."
+        },
+        {
+            "name": "Tech Talk Series",
+            "date": "Every Friday in October",
+            "location": "Conference Room A",
+            "contact": "9876543210",
+            "description": "Weekly sessions featuring industry experts discussing the latest in technology and innovation."
+        }
+    ]
+}
